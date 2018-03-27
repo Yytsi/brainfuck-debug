@@ -69,7 +69,7 @@ int main() {
 			case '.':
 				cout << tape[p]; break;
 			case 'C':
-				cout << (char)tape[i]; break;
+				cout << (char)tape[p]; break;
 			case ',':
 				tape[p] = toi(inputs[k++]); break;
 			case 'I':
