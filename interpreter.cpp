@@ -17,6 +17,18 @@ int toi(const string& str) {
 	return num;
 }
 
+// Print the first <k> cells, ending with a newline.
+// k = 3 --> [0, 1, 2] cells (newline included)
+void printCells(int k) {
+	assert(("Printing more cells than the tape holds!", k < TAPE_SIZE));
+	cout << "[";
+	for (int j = 0; j < k; j++) {
+		cout << tape[j];
+		if (j != k - 1) cout << ", ";
+	}
+	cout << "]\n";
+}
+
 int main() {
 	ios_base::sync_with_stdio(0); cin.tie(0);
 	string temp;
@@ -70,7 +82,7 @@ int main() {
 				p++;
 				if (p >= TAPE_SIZE) p = 0;
 				break;
-			case '[':
+			case '[': {
 				if (tape[p] == 0) {
 					// Find the matching closure.
 					int depth = 1;
@@ -81,10 +93,8 @@ int main() {
 						else if (s[i] == '[') depth++;
 					}
 				}
-				break;
-			case 'P':
-				system("pause"); break;
-			case ']':
+			} break;
+			case ']': {
 				// Find the matching start.
 				int depth = 1;
 				while (depth) {
@@ -94,19 +104,23 @@ int main() {
 					else if (s[i] == '[') depth--;
 				}
 				i--;
-				break;
+			} break;
+			case 'D': {
+				// DX
+				// D4 => [0, 1, 2, 3]
+				// DX notation prints the first X cells, for debugging purposes.
+				string stp = "";
+				while (isdigit(s[++i])) {
+					stp += s[i];
+				}
+				i--;
+				int X = toi(stp);
+				printCells(X);
+			} break;
+			case 'N': {
+				cout << "\n";
+			}
 		}
 		i++; // Move forward.
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
